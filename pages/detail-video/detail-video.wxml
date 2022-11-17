@@ -1,0 +1,40 @@
+<!--pages/detail-video/detail-video.wxml-->
+<video src="{{mvUrl}}" class="video" autoplay referrer-policy="origin" />
+
+<scroll-view class="content" scroll-y>
+  <view class="w">
+    <view class="info">
+      <text class="title">
+        {{mvDetail.name}}
+      </text>
+      <view class="art">
+        {{mvDetail.artistName}}
+      </view>
+      <view class="count">
+        {{fmt.formatCount(mvDetail.playCount)}}次播放 - {{mvDetail.publishTime}}
+      </view>
+    </view>
+    <view class="related-video">
+      <view class="recomm"><text>推荐视频</text></view>
+      <block wx:for="{{mvRelated}}" wx:key="vid">
+        <view class="item">
+          <view class="left">
+            <image src="{{item.coverUrl}}"></image>
+            <view class="count">
+              {{fmt.formatCount(item.playTime)}}
+            </view>
+          </view>
+          <view class="right">
+            <view class="title">
+              <text>{{item.title}}</text>
+            </view>
+            <view class="creator">
+              {{item.creator[0].userName}}
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</scroll-view>
+<wxs src="/utils/format.wxs" module="fmt" />
