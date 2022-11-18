@@ -1,4 +1,7 @@
 // 封装成类 -> 实例
+import {
+  baseUrl
+} from "./config"
 class Request {
   constructor(baseURL) {
     this.baseURL = baseURL
@@ -33,4 +36,4 @@ class Request {
     })
   }
 }
-export const myRequest = new Request("http://codercba.com:9002")
+export const myRequest = new Request(baseUrl)

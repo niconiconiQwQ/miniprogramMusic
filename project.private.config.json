@@ -5,5 +5,17 @@
     "compileHotReLoad": true,
     "urlCheck": false
   },
-  "condition": {}
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "歌单",
+          "pathName": "pages/detail-menu/detail-menu",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

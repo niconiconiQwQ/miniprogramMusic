@@ -1,23 +1,27 @@
 // pages/main-music/main-music.js
 import {
   getBanner,
-  getplaylistDetail
+  getSongMenuList
 } from "../../services/music"
 import {
   querySelect
 } from "../../utils/query_select.js"
+import {
+  createStoreBindings
+} from 'mobx-miniprogram-bindings'
+import {
+  recommendStore
+} from "../../store/recommendStore.js";
 import throttle from "../../utils/throttle";
 const querySelectThrottle = throttle(querySelect);
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     searchVal: '',
     bannerList: [],
     bannerHeight: 150,
-    recommendSongs: []
+    hotPlayList: [],
+    screenWidth: 375,
+    recMenuList: []
   },
   // 界面的事件监听
   onSearchClick() {
@@ -34,14 +38,20 @@ Page({
   },
   // 导航到更多推荐歌单
   onRecommendMoreClick() {
-    console.log('')
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song',
+    })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
-    this.fetchBanners();
-    this.fetchRecommendSongs();
+    this.storeBindings = createStoreBindings(this, {
+      store: recommendStore,
+      fields: ['recommendSongs'],
+      actions: ['fetchRecommendSongs']
+    });
+    this.fetchBanners(); // 获取轮播图
+    this.fetchRecommendSongs(); // store action 获取推荐歌单
+    this.fetchHotplaylist(); // 获取热门歌单
+    this.fetchRecMenuList(); // 获取推荐歌单
   },
   // ================网络请求的方法
   // 获取轮播图
@@ -51,11 +61,20 @@ Page({
       bannerList: res.banners
     })
   },
-  // 获取推荐歌单
-  async fetchRecommendSongs() {
-    let res = await getplaylistDetail(3778678);
-    this.setData({
-      recommendSongs: res.playlist.tracks.splice(0, 6)
+  // 获取热门歌单数据
+  async fetchHotplaylist() {
+    await getSongMenuList().then(res => {
+      this.setData({
+        hotPlayList: res.playlists
+      })
+    })
+  },
+  // 获取推荐歌单(这里就用华语)
+  async fetchRecMenuList() {
+    getSongMenuList('华语').then(res => {
+      this.setData({
+        recMenuList: res.playlists
+      })
     })
   },
   /**
@@ -81,7 +100,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+    this.storeBindings.destroyStoreBindings();
   },
 
   /**

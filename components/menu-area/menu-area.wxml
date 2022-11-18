@@ -1,0 +1,11 @@
+<!--components/menu-area/menu-area.wxml-->
+<view class="menu">
+  <area-header title="{{title}}" bind:moreClick="onMoreClick"></area-header>
+  <scroll-view scroll-x style="width: {{screenWidth}}px;" class="scroll-view">
+    <view class="list">
+      <block wx:for="{{menuList}}" wx:key="id">
+        <menu-item itemData="{{item}}" class="item"></menu-item>
+      </block>
+    </view>
+  </scroll-view>
+</view>

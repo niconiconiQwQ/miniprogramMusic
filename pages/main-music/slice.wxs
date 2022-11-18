@@ -1,0 +1,6 @@
+function slice(arr){
+  return arr.slice(0,6)
+}
+module.exports = {
+  slice: slice
+}

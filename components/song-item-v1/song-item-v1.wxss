@@ -1,1 +1,29 @@
 /* components/song-item-v1/song-item-v1.wxss */
+.song-item {
+  height: 140rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+}
+
+.image {
+  width: 22%;
+  height: 100%;
+  border-radius: 15rpx;
+  margin-right: 20rpx;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.content .source {
+  font-size: small;
+  color: #828282;
+}
+
+.arrow {
+  margin-left: auto;
+  color: #828282;
+}

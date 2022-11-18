@@ -1,0 +1,6 @@
+<!--pages/detail-song/detail-song.wxml-->
+<block wx:for="{{recommendSongs}}" wx:key="id">
+  <view>
+    {{item.name}}
+  </view>
+</block>

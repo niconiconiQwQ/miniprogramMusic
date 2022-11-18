@@ -1,0 +1,16 @@
+/* components/menu-area/menu-area.wxss */
+.scroll-view {
+  margin-left: -24rpx;
+}
+
+.scroll-view .list {
+  white-space: nowrap;
+  height: 100%;
+  width: 220rpx;
+  margin-left: 24rpx;
+}
+
+menu .item {
+  display: inline-block;
+  margin-right: 20rpx;
+}
