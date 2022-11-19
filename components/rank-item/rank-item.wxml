@@ -1,0 +1,25 @@
+<!--components/rank-item/rank-item.wxml-->
+<view class="ranking" bindtap="onRankItemTab" >
+  <view class="content">
+    <view class="name">
+      {{itemData.name}}
+    </view>
+    <view class="list">
+      <!-- 遍历三条 -->
+      <block wx:for="{{3}}" wx:key="*this">
+        <view class="item">
+          <text>{{item + 1}}. </text>
+          <text>{{itemData.tracks[item].name}} - </text>
+          <text class="singer">{{itemData.tracks[item].ar[0].name}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="album">
+    <image class="image" src="{{itemData.coverImgUrl}}" mode="heightFix" />
+    <view class="count">
+      {{fmt.formatCount(itemData.playCount)}}
+    </view>
+  </view>
+</view>
+<wxs src="/utils/format.wxs" module="fmt" />

@@ -1,0 +1,14 @@
+<!--components/nav-bar/nav-bar.wxml-->
+<view class="nav-bar">
+  <view class="status" style="height:{{statusBarHeight}}px"></view>
+  <view class="nav">
+    <view class="left">返回</view>
+    <view class="center">
+      <view class="slot">
+        <slot></slot>
+      </view>
+      <view class="default">{{title}}</view>
+    </view>
+    <view class="right"></view>
+  </view>
+</view>

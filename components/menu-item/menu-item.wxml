@@ -1,5 +1,5 @@
 <!--components/menu-item/menu-item.wxml-->
-<view class="menu-item">
+<view class="menu-item" bindtap="onMenuItemTap">
   <view class="top">
     <image src="{{itemData.coverImgUrl}}" mode="widthFix"></image>
     <view class="count">

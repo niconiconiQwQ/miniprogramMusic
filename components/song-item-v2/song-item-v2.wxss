@@ -1,0 +1,25 @@
+/* components/song-item-v2/song-item-v2.wxss */
+.item {
+  display: flex;
+  height: 100rpx;
+  padding-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.item .index {
+  line-height: 100rpx;
+  margin-right: 26rpx;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.info .name {}
+
+.info .art {
+  font-size: smaller;
+  color: #666;
+}

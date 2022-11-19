@@ -1,64 +1,45 @@
 // pages/detail-song/detail-song.js
 import {
-  createStoreBindings
-} from "mobx-miniprogram-bindings";
-import {
-  recommendStore
-} from "../../store/recommendStore.js";
+  getplaylistDetail
+} from "../../services/music"
 Page({
   data: {
-    
+    songInfo: {},
+    type: '',
   },
   onLoad(options) {
-    this.storeBindings = createStoreBindings(this, {
-      store: recommendStore,
-      fields: ['recommendSongs'],
-    });
+    this.setData({
+      type: options.type
+    })
+    // 判断是从哪个类型跳转过来的(menu/rank)，再做分支
+    if (options.type === 'menu') {
+      // 从menu跳过来，要发请求获取歌的数据
+      const id = options.id;
+      this.fetchMenuSongInfo(id);
+    } else if (options.type === "rank") {
+      // 从rank跳过的，歌的数据是传递过来的
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.on('acceptDataFromOpenerPage', (data) => {
+        this.setData({
+          // 设置数据
+          songInfo: data.data
+        });
+        // 动态设置标题
+        wx.setNavigationBarTitle({
+          title: data.data.name,
+        })
+      })
+    }
   },
-
-  onReady() {
-
+  // ========网络请求
+  fetchMenuSongInfo(id) {
+    getplaylistDetail(id).then(res => {
+      this.setData({
+        songInfo: res.playlist
+      })
+    })
   },
+  onReady() {},
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
+  onUnload() {},
 })

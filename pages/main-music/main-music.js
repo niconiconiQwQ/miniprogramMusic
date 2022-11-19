@@ -12,6 +12,9 @@ import {
 import {
   recommendStore
 } from "../../store/recommendStore.js";
+import {
+  rankStore
+} from "../../store/rankStore"
 import throttle from "../../utils/throttle";
 const querySelectThrottle = throttle(querySelect);
 Page({
@@ -43,15 +46,23 @@ Page({
     })
   },
   onLoad(options) {
+    // 绑定推荐歌单仓库
     this.storeBindings = createStoreBindings(this, {
       store: recommendStore,
       fields: ['recommendSongs'],
       actions: ['fetchRecommendSongs']
     });
+    // 绑定排行榜仓库
+    this.storeBindings2 = createStoreBindings(this, {
+      store: rankStore,
+      fields: ['newRank', 'originRank', 'upRank'],
+      actions: ['fetchRanks']
+    });
     this.fetchBanners(); // 获取轮播图
     this.fetchRecommendSongs(); // store action 获取推荐歌单
     this.fetchHotplaylist(); // 获取热门歌单
     this.fetchRecMenuList(); // 获取推荐歌单
+    this.fetchRanks(); // 获取排行榜
   },
   // ================网络请求的方法
   // 获取轮播图
@@ -101,6 +112,7 @@ Page({
    */
   onUnload() {
     this.storeBindings.destroyStoreBindings();
+    this.storeBindings2.destroyStoreBindings();
   },
 
   /**
@@ -121,6 +133,5 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
   }
 })
