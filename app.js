@@ -4,6 +4,7 @@ App({
     screenWidth: 375,
     screenHeight: 667,
     statusBarHeight: 44,
+    contentHeight: 500,
   },
   onLaunch() {
     wx.getSystemInfo({
@@ -11,6 +12,7 @@ App({
         this.globalData.screenWidth = res.screenWidth;
         this.globalData.screenHeight = res.screenHeight;
         this.globalData.statusBarHeight = res.statusBarHeight;
+        this.globalData.contentHeight = res.screenHeight - res.statusBarHeight - 44;
       }
     })
   },

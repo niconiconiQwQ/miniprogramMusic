@@ -4,7 +4,47 @@
 <view class="bg-cover"></view>
 <!-- 自定义导航栏 -->
 <nav-bar>
-  <text>jj</text>
+  <view slot="center" class="tabs">
+    <block wx:for="{{pageTitles}}" wx:key="*this">
+      <view class="{{currentPage === index? 'active': ''}}" data-index="{{index}}" bindtap="onTitleTap">{{item}}</view>
+      <view class="divider" wx:if="{{index !== pageTitles.length  -1}}">|</view>
+    </block>
+  </view>
 </nav-bar>
-<view style="color:#fff;">
-</view>
+<!-- 内容 -->
+<swiper bindchange="swiperChange" class="content" style="height: {{contentHeight}}px;" current="{{currentPage}}">
+  <swiper-item class="music">
+    <view class="album">
+      <image src="{{currentSong.al.picUrl}}" mode="widthFix" class="image" />
+    </view>
+    <view class="info">
+      <view class="name">{{currentSong.name}}</view>
+      <view class="art">{{currentSong.ar[0].name}}</view>
+    </view>
+    <view class="lyric">{{currentLyricText}}</view>
+    <view class="progress">
+      <slider block-size="12" value="{{sliderVal}}" bindchange="onSliderChange" bindchanging="onSliderChanging" />
+      <view class="time">
+        <view>{{fmt.formatTime(currentTime)}}</view>
+        <view>{{fmt.formatTime(duration)}}</view>
+      </view>
+    </view>
+    <view class="control">
+      <image class="btn mode" src="/assets/player/play_repeat.png" />
+      <image class="btn prev" src="/assets/player/play_prev.png" />
+      <image bindtap="onPlayOrPauseTap" class="btn play" src="/assets/player/play_{{isPlaying ? 'pause' :'resume'}}.png" />
+      <image class="btn next" src="/assets/player/play_next.png" />
+      <image class="btn list" src="/assets/player/play_music.png" />
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="lyric-list" scroll-y>
+      <block wx:for="{{lyric}}" wx:key="time">
+        <view class="item">
+          {{item.text}}
+        </view>
+      </block>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+<wxs src="/utils/format.wxs" module="fmt" />

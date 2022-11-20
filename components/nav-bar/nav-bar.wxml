@@ -2,10 +2,17 @@
 <view class="nav-bar">
   <view class="status" style="height:{{statusBarHeight}}px"></view>
   <view class="nav">
-    <view class="left">返回</view>
+    <view class="left">
+      <view class="slot">
+        <slot name="left"></slot>
+      </view>
+      <view class="default">
+        <image src="/assets/images/left.png" mode="" class="image"/>
+      </view>
+    </view>
     <view class="center">
       <view class="slot">
-        <slot></slot>
+        <slot name="center"></slot>
       </view>
       <view class="default">{{title}}</view>
     </view>

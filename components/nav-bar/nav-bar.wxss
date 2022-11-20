@@ -15,11 +15,19 @@
   flex: 1;
   text-align: center;
 }
-.default{
+
+.default {
   display: none;
 }
+
+.default .image {
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
 /* empty 伪类选择没有任何子元素或者文本内容的元素,若有元素则不选中 */
 /*  + 号 用于选择紧跟其后的元素 */
-.slot:empty + .default{
+.slot:empty+.default {
   display: block;
 }
