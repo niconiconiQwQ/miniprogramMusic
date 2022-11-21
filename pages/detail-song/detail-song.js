@@ -2,12 +2,24 @@
 import {
   getplaylistDetail
 } from "../../services/music"
+import {
+  palyerStore
+} from "../../store/playerStore"
+import {
+  createStoreBindings
+} from "mobx-miniprogram-bindings"
 Page({
   data: {
     songInfo: {},
     type: '',
   },
   onLoad(options) {
+        // 绑定palyerStore仓库
+        this.storeBindings = createStoreBindings(this, {
+          store: palyerStore,
+          fields: ['playSongList'],
+          actions: ['updatePlaySongList']
+        })
     this.setData({
       type: options.type
     })
@@ -39,7 +51,11 @@ Page({
       })
     })
   },
-  onReady() {},
-
-  onUnload() {},
+  // ============ 事件
+      onSongItemTap() {
+        this.updatePlaySongList(this.data.songInfo.tracks);
+      },
+  onUnload() {
+    this.storeBindings.destroyStoreBindings();
+  },
 })

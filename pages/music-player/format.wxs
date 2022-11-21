@@ -1,0 +1,7 @@
+var modeArr = ['order', 'repeat', 'random'];
+var changeIndex = function (index) {
+  return modeArr[index];
+}
+module.exports = {
+  changeIndex: changeIndex
+}

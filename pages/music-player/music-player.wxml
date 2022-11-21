@@ -3,7 +3,7 @@
 <image src="{{currentSong.al.picUrl}}" mode="aspectFill" class="bg-img" />
 <view class="bg-cover"></view>
 <!-- 自定义导航栏 -->
-<nav-bar>
+<nav-bar bind:leftTap="onNavBack">
   <view slot="center" class="tabs">
     <block wx:for="{{pageTitles}}" wx:key="*this">
       <view class="{{currentPage === index? 'active': ''}}" data-index="{{index}}" bindtap="onTitleTap">{{item}}</view>
@@ -13,6 +13,7 @@
 </nav-bar>
 <!-- 内容 -->
 <swiper bindchange="swiperChange" class="content" style="height: {{contentHeight}}px;" current="{{currentPage}}">
+  <!-- 歌曲 -->
   <swiper-item class="music">
     <view class="album">
       <image src="{{currentSong.al.picUrl}}" mode="widthFix" class="image" />
@@ -30,17 +31,18 @@
       </view>
     </view>
     <view class="control">
-      <image class="btn mode" src="/assets/player/play_repeat.png" />
-      <image class="btn prev" src="/assets/player/play_prev.png" />
+      <image bindtap="onModeBtnTap" class="btn mode" src="/assets/player/play_{{fmt2.changeIndex(playModeIndex)}}.png" />
+      <image bindtap="onPrevBtnTap" class="btn prev" src="/assets/player/play_prev.png" />
       <image bindtap="onPlayOrPauseTap" class="btn play" src="/assets/player/play_{{isPlaying ? 'pause' :'resume'}}.png" />
-      <image class="btn next" src="/assets/player/play_next.png" />
+      <image bindtap="onNextBtnTap" class="btn next" src="/assets/player/play_next.png" />
       <image class="btn list" src="/assets/player/play_music.png" />
     </view>
   </swiper-item>
+  <!-- 歌词 -->
   <swiper-item>
-    <scroll-view class="lyric-list" scroll-y>
+    <scroll-view class="lyric-list" scroll-y scroll-top="{{lyricScrollTop}}" scroll-with-animation>
       <block wx:for="{{lyric}}" wx:key="time">
-        <view class="item">
+        <view class="item {{index === currentLyricIndex?'active' : ''}}" style="padding-top: {{index === 0 ? (contentHeight / 2 -60) : 0}}px; padding-bottom: {{index === lyric.length - 1?(contentHeight / 2 +30):0}}px;">
           {{item.text}}
         </view>
       </block>
@@ -48,3 +50,4 @@
   </swiper-item>
 </swiper>
 <wxs src="/utils/format.wxs" module="fmt" />
+<wxs src="./format.wxs" module="fmt2" />

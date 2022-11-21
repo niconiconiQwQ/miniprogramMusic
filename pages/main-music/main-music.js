@@ -15,6 +15,9 @@ import {
 import {
   rankStore
 } from "../../store/rankStore"
+import {
+  palyerStore
+} from "../../store/playerStore"
 import throttle from "../../utils/throttle";
 const querySelectThrottle = throttle(querySelect);
 Page({
@@ -25,25 +28,6 @@ Page({
     hotPlayList: [],
     screenWidth: 375,
     recMenuList: []
-  },
-  // 界面的事件监听
-  onSearchClick() {
-    wx.navigateTo({
-      url: '/pages/detail-search/detail-search',
-    })
-  },
-  async onBannerImageLoad(event) {
-    // 下面操作为创建一个选择器，通过选择器获取某元素/组件
-    const res = await querySelectThrottle('.banner-image');
-    this.setData({
-      bannerHeight: res[0].height
-    })
-  },
-  // 导航到更多推荐歌单
-  onRecommendMoreClick() {
-    wx.navigateTo({
-      url: '/pages/detail-song/detail-song',
-    })
   },
   onLoad(options) {
     // 绑定推荐歌单仓库
@@ -58,11 +42,41 @@ Page({
       fields: ['newRank', 'originRank', 'upRank'],
       actions: ['fetchRanks']
     });
+    // 绑定全局歌单列表
+    this.storeBindings3 = createStoreBindings(this, {
+      store: palyerStore,
+      fields: ['playSongList', 'playSongIndex'],
+      actions: ['updatePlaySongList', "updatePlaySongIndex"]
+    });
     this.fetchBanners(); // 获取轮播图
     this.fetchRecommendSongs(); // store action 获取推荐歌单
     this.fetchHotplaylist(); // 获取热门歌单
     this.fetchRecMenuList(); // 获取推荐歌单
     this.fetchRanks(); // 获取排行榜
+  },
+  // ===================== 界面的事件监听
+  onSearchClick() {
+    wx.navigateTo({
+      url: '/pages/detail-search/detail-search',
+    })
+  },
+  async onBannerImageLoad(event) {
+    // 下面操作为创建一个选择器，通过选择器获取某元素/组件
+    const res = await querySelectThrottle('.banner-image');
+    this.setData({
+      bannerHeight: res[0].height
+    })
+  },
+  // 点击更多，导航到更多推荐歌单
+  onRecommendMoreClick() {
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song',
+    })
+  },
+  // 点击推荐歌曲某一个首歌，
+  onSongItemTap(e) {
+    this.updatePlaySongList(this.data.recommendSongs);
+    this.updatePlaySongIndex(e.currentTarget.dataset.index)
   },
   // ================网络请求的方法
   // 获取轮播图
@@ -88,50 +102,10 @@ Page({
       })
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload() {
     this.storeBindings.destroyStoreBindings();
     this.storeBindings2.destroyStoreBindings();
+    this.storeBindings3.destroyStoreBindings();
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-  }
 })
