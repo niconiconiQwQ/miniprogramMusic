@@ -45,14 +45,15 @@ Page({
     // 绑定全局歌单列表
     this.storeBindings3 = createStoreBindings(this, {
       store: palyerStore,
-      fields: ['playSongList', 'playSongIndex'],
-      actions: ['updatePlaySongList', "updatePlaySongIndex"]
+      fields: ['playSongList', 'playSongIndex', 'currentSong', 'isPlaying'],
+      actions: ['updatePlaySongList', "updatePlaySongIndex", 'playMusicStatus']
     });
     this.fetchBanners(); // 获取轮播图
     this.fetchRecommendSongs(); // store action 获取推荐歌单
     this.fetchHotplaylist(); // 获取热门歌单
     this.fetchRecMenuList(); // 获取推荐歌单
     this.fetchRanks(); // 获取排行榜
+    // =========== 测试
   },
   // ===================== 界面的事件监听
   onSearchClick() {
@@ -77,6 +78,16 @@ Page({
   onSongItemTap(e) {
     this.updatePlaySongList(this.data.recommendSongs);
     this.updatePlaySongIndex(e.currentTarget.dataset.index)
+  },
+  // 点击播放或暂停
+  onPlayOrPauseTap() {
+    this.playMusicStatus();
+  },
+  // 跳转到播放页面
+  onGoMusicPlayTap(){
+    wx.navigateTo({
+      url: '/pages/music-player/music-player',
+    })
   },
   // ================网络请求的方法
   // 获取轮播图
@@ -107,5 +118,4 @@ Page({
     this.storeBindings2.destroyStoreBindings();
     this.storeBindings3.destroyStoreBindings();
   },
-
 })

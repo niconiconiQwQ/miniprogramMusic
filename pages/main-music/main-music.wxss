@@ -19,3 +19,66 @@ page {
 .banner-image {
   width: 100%;
 }
+
+/* 播放工具栏 */
+.play-bar-placeholder {
+  height: 44px;
+}
+
+.play-bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0;
+  left: 0;
+  height: 88rpx;
+  width: 100%;
+  padding: 0 20rpx;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.play-bar .left,
+.play-bar .right {
+  display: flex;
+  align-items: center;
+}
+
+.left .album {
+  position: relative;
+  top: -12rpx;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.left .name {
+  margin-left: 10rpx;
+  font-size: 14px;
+}
+
+.right .play,
+.right .icon {
+  height: 30px;
+  width: 30px;
+}
+
+.right .play {
+  width: 25px;
+  height: 25px;
+  margin-right: 10rpx;
+}
+
+@keyframes rotateAnima {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.albumAmina {
+  animation: rotateAnima 10s linear infinite;
+}

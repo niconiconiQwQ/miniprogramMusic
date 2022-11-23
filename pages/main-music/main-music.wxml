@@ -20,11 +20,26 @@
 <!-- <menu-area title="热门歌单" menuList="{{hotPlayList}}"></menu-area> -->
 <!-- 5.推荐歌单 -->
 <!-- <menu-area title="推荐歌单" menuList="{{recMenuList}}"></menu-area> -->
-<!-- 4. 巅峰榜-->
+<!-- 6. 巅峰榜-->
 <view class="ranking">
   <area-header title="巅峰榜" hasMore="{{false}}"></area-header>
   <!-- <rank-item itemData="{{newRank}}" type="rank"></rank-item> -->
   <!-- <rank-item itemData="{{originRank}}" type="rank"></rank-item> -->
   <!-- <rank-item itemData="{{upRank}}" type="rank"></rank-item> -->
+</view>
+<!-- 7. 播放工具栏 -->
+<!-- 占位的，如果仓库里有歌曲，就占个位，不然滚动条很突兀 -->
+<view class="play-bar-placeholder" wx:if="{{currentSong.name || isPlaying }}"></view>
+<view class="play-bar" wx:if="{{currentSong.name || isPlaying}}">
+  <view class="left">
+    <image src="{{currentSong.al.picUrl}}" class="album albumAmina" mode="heightFix" style="animation-play-state: {{isPlaying?'running':'paused'}};" bindtap="onGoMusicPlayTap"/>
+    <view class="name">
+      {{currentSong.name}}
+    </view>
+  </view>
+  <view class="right">
+    <image bindtap="onPlayOrPauseTap" class="play" src="/assets/music/{{isPlaying?'pause':'play'}}_icon.png" mode="heightFix" />
+    <image class="icon" src="/assets/music/playlist_icon.png" mode="heightFix" />
+  </view>
 </view>
 <wxs src="./slice.wxs" module="fmt" />
