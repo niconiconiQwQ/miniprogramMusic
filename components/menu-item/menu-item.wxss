@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.top image {
+.top .image {
   width: 100%;
   border-radius: 12rpx;
   background-size: cover;

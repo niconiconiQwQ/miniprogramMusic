@@ -11,4 +11,5 @@
       {{itemData.ar[0].name}}
     </view>
   </view>
+  <van-icon name="more-o" class="more-icon" catchtap="onMoreIconTap"/>
 </view>

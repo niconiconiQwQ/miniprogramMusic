@@ -1,4 +1,5 @@
 // pages/detail-song/detail-song.js
+const db = wx.cloud.database();
 import {
   getplaylistDetail
 } from "../../services/music"
@@ -8,22 +9,25 @@ import {
 import {
   createStoreBindings
 } from "mobx-miniprogram-bindings"
+import {
+  collect
+} from "underscore";
 Page({
   data: {
     songInfo: {},
     type: '',
   },
   onLoad(options) {
-        // 绑定palyerStore仓库
-        this.storeBindings = createStoreBindings(this, {
-          store: palyerStore,
-          fields: ['playSongList'],
-          actions: ['updatePlaySongList']
-        })
+    // 绑定palyerStore仓库
+    this.storeBindings = createStoreBindings(this, {
+      store: palyerStore,
+      fields: ['playSongList'],
+      actions: ['updatePlaySongList']
+    })
     this.setData({
       type: options.type
     })
-    // 判断是从哪个类型跳转过来的(menu/rank)，再做分支
+    // 判断是从哪个类型跳转过来的(menu/rank/profile)，再做分支
     if (options.type === 'menu') {
       // 从menu跳过来，要发请求获取歌的数据
       const id = options.id;
@@ -41,6 +45,9 @@ Page({
           title: data.data.name,
         })
       })
+    } else if (options.type === 'profile') {
+      console.log(options)
+      this.handleProfileTab(options.tabname, options.title);
     }
   },
   // ========网络请求
@@ -51,10 +58,20 @@ Page({
       })
     })
   },
+  async handleProfileTab(type, title) {
+    const collection = db.collection(`c_${type}`);
+    const res = await collection.get();
+    this.setData({
+      songInfo: {
+        name: title,
+        tracks: res.data,
+      }
+    })
+  },
   // ============ 事件
-      onSongItemTap() {
-        this.updatePlaySongList(this.data.songInfo.tracks);
-      },
+  onSongItemTap() {
+    this.updatePlaySongList(this.data.songInfo.tracks);
+  },
   onUnload() {
     this.storeBindings.destroyStoreBindings();
   },

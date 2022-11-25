@@ -1,0 +1,44 @@
+page {
+  box-sizing: border-box;
+  padding: 30rpx;
+  background-color: #f3f3f3;
+}
+
+.section {
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 10rpx;
+}
+
+.userinfo {
+  display: flex;
+  align-items: center;
+}
+
+.userinfo .avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.userinfo .nickname {
+  font-size: medium;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30rpx;
+}
+
+.tab .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab .image {
+  height: 70rpx;
+  margin-bottom: 10rpx;
+}

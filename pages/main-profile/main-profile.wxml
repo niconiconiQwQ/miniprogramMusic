@@ -1,0 +1,15 @@
+<!-- 1. 头像和名称 -->
+<view class="section">
+  <view class="userinfo" bindtap="onUserInfoTap">
+    <image class="avatar" src="{{isLogin? userInfo.avatarUrl:'/assets/profile/avatar_placeholder.png'}}" mode="" />
+    <text class="nickname">{{isLogin?userInfo.nickName:'未登录'}}</text>
+  </view>
+</view>
+<view class="section tab">
+  <block wx:for="{{tabs}}" wx:key="type">
+    <view class="item" bindtap="onTabTap" data-type="{{item.type}}" data-title="{{item.name}}">
+      <image src="/assets/profile/{{item.type}}.png" mode="heightFix" class="image" />
+      <view class="type">{{item.name}}</view>
+    </view>
+  </block>
+</view>

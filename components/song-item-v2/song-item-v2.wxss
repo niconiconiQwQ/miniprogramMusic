@@ -17,9 +17,12 @@
   flex-direction: column;
 }
 
-.info .name {}
-
 .info .art {
   font-size: smaller;
   color: #666;
+}
+
+.item .more-icon {
+  margin-left: auto;
+  margin-right: 20rpx;
 }
