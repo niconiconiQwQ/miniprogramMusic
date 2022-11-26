@@ -12,6 +12,9 @@ import {
 import {
   throttle
 } from "underscore"
+import {
+  c_history
+} from "../database/index"
 export const audioContext = wx.createInnerAudioContext();
 export const palyerStore = observable({
   playSongList: [], // 歌曲列表
@@ -38,7 +41,9 @@ export const palyerStore = observable({
   updateSongDetail: action(function (id) {
     getSongDetail(id).then(res => {
       this.currentSong = res.songs[0];
-      this.duration = res.songs[0].dt
+      this.duration = res.songs[0].dt;
+      // 添加一条历史记录
+      c_history.add(res.songs[0]);
     })
   }),
   // 请求 更新 / 获取歌词信息
@@ -77,7 +82,7 @@ export const palyerStore = observable({
     this.lyricScrollTop = 35 * index;
   }),
   // 更新歌曲的索引，从其他地方点击个歌曲时，要记录次索引
-  updatePlaySongIndex:action(function(index){
+  updatePlaySongIndex: action(function (index) {
     this.playSongIndex = index;
   }),
   // 更新滑块的滚动

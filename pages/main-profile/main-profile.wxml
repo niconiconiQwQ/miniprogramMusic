@@ -5,6 +5,7 @@
     <text class="nickname">{{isLogin?userInfo.nickName:'未登录'}}</text>
   </view>
 </view>
+<!-- 我的收藏喜欢历史记录 -->
 <view class="section tab">
   <block wx:for="{{tabs}}" wx:key="type">
     <view class="item" bindtap="onTabTap" data-type="{{item.type}}" data-title="{{item.name}}">
@@ -13,3 +14,21 @@
     </view>
   </block>
 </view>
+<!-- 我的歌单 -->
+<view class="mine-menu">
+  <area-header title="我的歌单" hasMore="{{false}}"></area-header>
+  <view class="section content">
+    <view class="header">
+      <view class="title">创建歌单</view>
+      <van-icon name="plus" bindtap="onPlusTap" />
+    </view>
+    <view class="list">
+      <block wx:for="{{menuList}}" wx:key="name">
+        <menu-item-v2 itemData="{{item}}"></menu-item-v2>
+      </block>
+    </view>
+  </view>
+</view>
+<van-dialog class="dialog" use-slot title="创建歌单" show="{{ isShowDialog }}" show-cancel-button confirm-button-open-type="getUserInfo" bind:confirm="onConfirmTap">
+  <input type="text" class="input" placeholder="请输入歌单名称" model:value="{{menuName}}" bindinput="onInputChange" />
+</van-dialog>

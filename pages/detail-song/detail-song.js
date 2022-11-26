@@ -7,11 +7,11 @@ import {
   palyerStore
 } from "../../store/playerStore"
 import {
+  menuStore
+} from "../../store/menuStore"
+import {
   createStoreBindings
 } from "mobx-miniprogram-bindings"
-import {
-  collect
-} from "underscore";
 Page({
   data: {
     songInfo: {},
@@ -23,6 +23,12 @@ Page({
       store: palyerStore,
       fields: ['playSongList'],
       actions: ['updatePlaySongList']
+    })
+    // 绑定 menuStore仓库
+    this.storeBindings2 = createStoreBindings(this,{
+      store: menuStore,
+      fields: ['menuList'],
+        actions: ['fetchMenuList']
     })
     this.setData({
       type: options.type
@@ -74,5 +80,6 @@ Page({
   },
   onUnload() {
     this.storeBindings.destroyStoreBindings();
+    this.storeBindings2.destroyStoreBindings();
   },
 })

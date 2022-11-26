@@ -8,6 +8,7 @@ page {
   background-color: #fff;
   padding: 30rpx;
   border-radius: 10rpx;
+  margin-bottom: 30rpx;
 }
 
 .userinfo {
@@ -29,7 +30,6 @@ page {
 .tab {
   display: flex;
   justify-content: space-around;
-  margin-top: 30rpx;
 }
 
 .tab .item {
@@ -41,4 +41,24 @@ page {
 .tab .image {
   height: 70rpx;
   margin-bottom: 10rpx;
+}
+
+/* 我的歌单 */
+.mine-menu .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #888;
+  font-size: 24rpx;
+}
+
+
+/* 弹窗的样式 */
+.dialog .input {
+  height: 80rpx;
+  margin: 40rpx;
+  padding: 0 10rpx;
+  border: 1px solid #eee;
+  border-radius: 6rpx;
+  font-size: 28rpx;
 }
